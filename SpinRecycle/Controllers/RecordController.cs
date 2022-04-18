@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpinRecycle.Data_Access;
 using SpinRecycle.Models;
 
@@ -9,16 +8,20 @@ namespace SpinRecycle.Controllers
     [ApiController]
     public class RecordController : ControllerBase
     {
-        //RecordRepository _recRepo = new RecordRepository();
+        private readonly IRecordRepository _recRepo;
+        public RecordController(IRecordRepository recRepository)
+        {
+            _recRepo = recRepository;
+        }
 
-        [HttpGet] //Method
+        [HttpGet] // GET: api/record
         public List<Record> GetAllRecords()
         {
             return _recRepo.GetAll();
         }
 
         [HttpGet("id/{id}")]
-        public IActionResult GetRecordById(string id)
+        public IActionResult GetRecordById(int id)
         {
             var match = _recRepo.GetRecordById(id);
             if (match == null)
@@ -62,19 +65,6 @@ namespace SpinRecycle.Controllers
 
             return Ok(match);
         }
-        [HttpGet("searching/{searching}")]
-        public IActionResult GetRecordBySearching(string searching)
-        {
-            var match = _recRepo.GetBySearching(searching);
-            if (match == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(match);
-        }
-
-
     }
 }
 
