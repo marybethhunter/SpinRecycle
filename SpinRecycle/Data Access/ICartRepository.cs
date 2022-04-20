@@ -13,5 +13,10 @@ namespace SpinRecycle.Data_Access
         Record AddToCart(int recordId, int cartId);
 
         void RemoveFromCart(int recordId, int cartId);
+      
+        //Cart GetCartById(int id);
+        //void AddCart(Cart cart);
+        //void UpdateCart(int id, Cart cart);
+        //void DeleteCart(int id);
     }
 }
