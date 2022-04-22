@@ -1,22 +1,51 @@
-﻿using System.Data.SqlClient;
+﻿using SpinRecycle.Models;
+using System.Data.SqlClient;
 
 namespace SpinRecycle.Data_Access
 {
-    public class CartRepository
+    public class CartRepository : ICartRepository
     {
-        private readonly IConfiguration _config;
-
-        public CartRepository(IConfiguration config)
+        private static List<Cart> _carts = new List<Cart>()
         {
-            _config = config;
+            new Cart()
+            {
+                Id = 1,
+                CartId = "Prince",
+                RecordId = "1"
+                
+            },
+            new Cart()
+            {
+                Id = 2,
+                CartId = "Ari Lennox",
+                RecordId = "2"
+                
+            },
+            new Cart()
+            {
+                Id = 3,
+                CartId = "Luck Daye",
+                RecordId = "3"
+                
+            },
+            new Cart()
+            {
+                Id = 4,
+                CartId = "J Cole",
+                RecordId = "4"
+
+            },
+        };
+
+        internal object GetByCartId(string cart)
+        {
+            var match = _carts.FirstOrDefault(x => x.Cart == cart);
+            return match;
         }
 
-        public SqlConnection Connection
+        internal List<Cart> GetAll()
         {
-            get
-            {
-                return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            }
+            return _carts;
         }
     }
 }

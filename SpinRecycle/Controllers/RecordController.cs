@@ -73,23 +73,7 @@ namespace SpinRecycle.Controllers
             }
             return Ok(matches);
         }
-
-        [HttpGet("{search}")]
-
-        public IActionResult GetBySearch(string search)
-        {
-            var matches = _recordRepository.GetByGenre(search);
-            if (matches != null)
-            {
-                return Ok(matches);
-            }
-            else
-            {
-                return NotFound();
-            }
-            return Ok(matches);
-        }
-
+    
         [HttpPost]
         public IActionResult Post(Record newRecord)
         {
