@@ -12,21 +12,21 @@ namespace SpinRecycle.Data_Access
                 Id = 1,
                 CartId = "Prince",
                 RecordId = "1"
-                
+
             },
             new Cart()
             {
                 Id = 2,
                 CartId = "Ari Lennox",
                 RecordId = "2"
-                
+
             },
             new Cart()
             {
                 Id = 3,
                 CartId = "Luck Daye",
                 RecordId = "3"
-                
+
             },
             new Cart()
             {
