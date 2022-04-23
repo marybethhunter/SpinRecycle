@@ -65,6 +65,19 @@ namespace SpinRecycle.Controllers
 
             return Ok(match);
         }
+        [HttpPost]
+        public IActionResult CreateRecord(Record newRecord)
+        {
+            if (newRecord == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _recRepo.Add(newRecord);
+                return Ok(newRecord);
+            }
+        }
     }
 }
 
