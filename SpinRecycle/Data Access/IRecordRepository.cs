@@ -9,5 +9,6 @@ namespace SpinRecycle.Data_Access
         Record GetRecordByName(string name);
         List<Record> GetByArtist(string artist);
         List<Record> GetByGenre(string genre);
+        Record Add(Record record);
     }
 }
