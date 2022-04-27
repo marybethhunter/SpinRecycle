@@ -9,6 +9,8 @@ namespace SpinRecycle.Data_Access
         Record GetRecordByName(string name);
         List<Record> GetByArtist(string artist);
         List<Record> GetByGenre(string genre);
-        void Add(Record record);
+        void AddRecord(Record newRecord);
+        void UpdateRecord(Record recordToUpdate);
+        void DeleteRecord(int id);
     }
 }
