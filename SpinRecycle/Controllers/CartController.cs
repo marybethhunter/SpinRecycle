@@ -16,47 +16,32 @@ namespace SpinRecycle.Controllers
             _cartRepo = cartRepository;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetCartById(int id)
+        // GET: api/Records
+        [HttpGet]
+        public List<Record> Get()
         {
-            var match = _cartRepo.GetCartById(id);
-            if (match == null)
-            {
-                return NotFound();
-            }
-            return Ok(match);
+            return _cartRepo.GetCartRecords();
         }
 
         [HttpPost]
-        public IActionResult Post(Cart newCart)
+        public IActionResult Post(Record record)
         {
-            _cartRepo.AddCart(newCart);
-            return Ok(newCart);
+            _cartRepo.AddCartRecord(record);
+            return Ok(record);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, Cart cartToUpdate)
-        {
-            var match = _cartRepo.GetCartById(id);
-            if (match == null)
-            {
-                return NotFound();
-            }
-            _cartRepo.UpdateCart(id, cartToUpdate);
-            return NoContent();
-        }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpDelete("{record}")]
+        public IActionResult Delete(int record)
         {
-            var match = _cartRepo.GetCartById(id);
+            var match = _cartRepo.GetCartRecords();
             if (match == null)
             {
                 return NotFound();
             }
             else
             {
-                _cartRepo.DeleteCart(id);
+                _cartRepo.DeleteCartRecord(record);
                 return NoContent();
             }
         }

@@ -149,5 +149,88 @@ namespace SpinRecycle.Data_Access
                 }
             }
         }
+
+        public void AddRecord(Record _record)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT ArtistId, Artist FROM [dbo].[Artist] WHERE Artist = @Artist";
+                    cmd.Parameters.AddWithValue("@Artist", _record.Artist);
+                    int artistId = 0;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        artistId = reader.GetInt32(reader.GetOrdinal("ArtistId"));
+                    }
+                    cmd.CommandText = @"SELECT GenreId, Genre FROM [dbo].[Genre] WHERE Genre = @Genre";
+                    cmd.Parameters.AddWithValue("@Genre", _record.Genre);
+                    int genreId = 0;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        genreId = reader.GetInt32(reader.GetOrdinal("genreId"));
+                    }
+                    cmd.CommandText = @"
+                    INSERT INTO [dbo].[Record] (Title, ArtistId, GenreId, Price) Values (@Title, @ArtistId, @GenreId, @Price)";
+                    cmd.Parameters.AddWithValue("@Title", _record.Title);
+                    cmd.Parameters.AddWithValue("@ArtistId", artistId);
+                    cmd.Parameters.AddWithValue("@GenreId", genreId);
+                    cmd.Parameters.AddWithValue("@Price", _record.Price);
+                    int id = (int)cmd.ExecuteScalar();
+                    _record.Id = id;
+                }
+            }
+         }
+        public void UpdateRecord(Record _record)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT ArtistId, Artist FROM [dbo].[Artist] WHERE Artist = @Artist";
+                    cmd.Parameters.AddWithValue("@Artist", _record.Artist);
+                    int artistId = 0;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        artistId = reader.GetInt32(reader.GetOrdinal("ArtistId"));
+                    }
+                    cmd.CommandText = @"SELECT GenreId, Genre FROM [dbo].[Genre] WHERE Genre = @Genre";
+                    cmd.Parameters.AddWithValue("@Genre", _record.Genre);
+                    int genreId = 0;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        genreId = reader.GetInt32(reader.GetOrdinal("genreId"));
+                    }
+                    cmd.CommandText = @"
+                    UPDATE [dbo].[Record] (Title, ArtistId, GenreId, Price) Values (@Title, @ArtistId, @GenreId, @Price) WHERE RecordId = @RecordId";
+
+                    cmd.Parameters.AddWithValue("@Title", _record.Title);
+                    cmd.Parameters.AddWithValue("@ArtistId", artistId);
+                    cmd.Parameters.AddWithValue("@GenreId", genreId);
+                    cmd.Parameters.AddWithValue("@Price", _record.Price);
+                    cmd.Parameters.AddWithValue("@RecordId", _record.Id);
+
+                    var result = cmd.ExecuteNonQuery();
+                }
+            }
+          
+        }
+        public void DeleteRecord(int id)
+        {
+            var item = this.GetRecordById(id);
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE [dbo].[Record] FROM Record WHERE RecordId = @RecordId";
+                    cmd.Parameters.AddWithValue("@RecordId", id);
+                    var result = cmd.ExecuteNonQuery();
+                }
+            }
+            
+        }
     }
 }

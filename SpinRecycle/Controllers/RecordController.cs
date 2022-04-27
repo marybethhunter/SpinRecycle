@@ -21,7 +21,7 @@ namespace SpinRecycle.Controllers
             return _recordRepository.GetAll();
         } 
 
-        [HttpGet("id}")]
+        [HttpGet("{id}")]
         public IActionResult GetRecordByID(int id)
         {
             var match = _recordRepository.GetRecordById(id);
@@ -83,14 +83,14 @@ namespace SpinRecycle.Controllers
 
            
         [HttpPut("{id}")]
-        public IActionResult UpdateRecord(int id, Record recordToUpdate)
+        public IActionResult UpdateRecord(Record recordToUpdate)
         {
-            var match = _recordRepository.GetRecordById(id);
+            var match = _recordRepository.GetRecordById(recordToUpdate.Id);
             if (match == null)
             {
                 return NotFound();
             }
-            _recordRepository.UpdateRecord(id, recordToUpdate);
+            _recordRepository.UpdateRecord(recordToUpdate);
                 return NoContent();
            }
 
@@ -106,6 +106,19 @@ namespace SpinRecycle.Controllers
             {
                 _recordRepository.DeleteRecord(id);
                 return NoContent();
+            }
+        }
+        [HttpPost]
+        public IActionResult CreateRecord(Record newRecord)
+        {
+            if (newRecord == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _recordRepository.AddRecord(newRecord);
+                return Ok(newRecord);
             }
         }
     }
