@@ -108,6 +108,19 @@ namespace SpinRecycle.Controllers
                 return NoContent();
             }
         }
+        [HttpPost]
+        public IActionResult CreateRecord(Record newRecord)
+        {
+            if (newRecord == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _recordRepository.AddRecord(newRecord);
+                return Ok(newRecord);
+            }
+        }
     }
 }
 
