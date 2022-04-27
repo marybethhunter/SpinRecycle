@@ -9,7 +9,6 @@ const CardBody = styled.div`
 const AlbumCover = styled.img``;
 const AlbumInfo = styled.div`
   display: flex;
-  flex-dire
 `;
 
 const Title = styled.div``;
