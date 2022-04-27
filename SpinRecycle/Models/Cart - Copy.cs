@@ -1,6 +1,6 @@
 ﻿namespace SpinRecycle.Models
 {
-    public class Cartss
+    public class Cart
     {
          public int Id { get; set; }
         //public string CartId { get; internal set; } remove
