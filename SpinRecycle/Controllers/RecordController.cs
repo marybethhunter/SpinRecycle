@@ -117,7 +117,7 @@ namespace SpinRecycle.Controllers
             }
             else
             {
-                _recRepo.Add(newRecord);
+                _recordRepository.AddRecord(newRecord);
                 return Ok(newRecord);
             }
         }
