@@ -74,12 +74,12 @@ namespace SpinRecycle.Controllers
             return Ok(matches);
         }
     
-        [HttpPost]
-        public IActionResult Post(Record newRecord)
-        {
-            _recordRepository.AddRecord(newRecord);
-            return Ok(newRecord);
-        }
+        //[HttpPost]
+        //public IActionResult PostRecord(Record newRecord)
+        //{
+        //    _recordRepository.AddRecord(newRecord);
+        //    return Ok(newRecord);
+        //}
 
            
         [HttpPut("{id}")]
