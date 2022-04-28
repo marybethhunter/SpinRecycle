@@ -13,12 +13,12 @@ import {
 export default function Record({ record }) {
   return (
     <Card>
-    <CardImg
+    {/* <CardImg
       alt={record.Title}
       src={record.Image}
       top
       width="100%"
-    />
+    /> */}
     <CardBody>
       <CardTitle tag="h5">
         {record.Title}

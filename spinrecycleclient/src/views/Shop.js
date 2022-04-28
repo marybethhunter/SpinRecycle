@@ -13,10 +13,10 @@ export default function Shop() {
   });
 
   return (
-    <div>
+    <>
       {records.map((record) => (
-        <Record key={record.Id} record={record} />
+        <Record key={record.RecordId} record={record} />
       ))}
-    </div>
+    </>
   );
 }
