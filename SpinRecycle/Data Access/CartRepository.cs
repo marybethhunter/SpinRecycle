@@ -26,20 +26,17 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT c.RecordId AS CartRecordId, 
-                                      r.RecordId AS RecordId,
-                                      a.[Name] AS ArtistName,
-                                      g.[Name] AS Genre,
-                                      r.Title, 
-                                      Price
-                                      FROM Cart As c
-                                      LEFT JOIN Record r 
-                                      ON c.RecordId = r.RecordId 
-                                      LEFT JOIN Artist as a
-                                      ON r.ArtistId = a.ArtistId
-                                      LEFT JOIN Genre as g
-                                      ON r.GenreId = g.GenreId
-                                             ";
+                    cmd.CommandText = @"
+                        SELECT c.RecordId AS CartRecordId, 
+                        r.RecordId AS RecordId,
+                        r.Title, 
+                        r.Artist,
+                        r.Genre,
+                        r.Price
+                        FROM Cart As c
+                        LEFT JOIN Record r 
+                        ON c.RecordId = r.RecordId
+                     ";
 
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -49,13 +46,9 @@ namespace SpinRecycle.Data_Access
                         Record record = new Record
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("RecordId")),
-                            // Title
                             Title = reader.GetString(reader.GetOrdinal("Title")),
-                            // Artist
                             Artist = reader.GetString(reader.GetOrdinal("ArtistName")),
-                            // Genre
                             Genre = reader.GetString(reader.GetOrdinal("GenreName")),
-                            // Price 
                             Price = reader.GetDecimal(reader.GetOrdinal("Price")),
                         };
 
@@ -80,12 +73,13 @@ namespace SpinRecycle.Data_Access
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Cart 
-                    VALUES @RecordId;
+                        INSERT INTO Cart 
+                        VALUES @RecordId;
                      ";
 
                     cmd.Parameters.AddWithValue("@RecordId", record.Id);
-                                  
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
