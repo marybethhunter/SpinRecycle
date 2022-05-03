@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   }
 }

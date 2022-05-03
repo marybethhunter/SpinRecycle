@@ -157,19 +157,24 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT ArtistId, Artist FROM [dbo].[Artist] WHERE Artist = @Artist";
+                    cmd.CommandText = @"SELECT ArtistId, Name FROM [dbo].[Artist] WHERE Name = @Artist";
                     cmd.Parameters.AddWithValue("@Artist", _record.Artist);
                     int artistId = 0;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        artistId = reader.GetInt32(reader.GetOrdinal("ArtistId"));
+                        if (reader.Read())
+                        {
+                            artistId = reader.GetInt32(reader.GetOrdinal("ArtistId"));
+                        }
                     }
-                    cmd.CommandText = @"SELECT GenreId, Genre FROM [dbo].[Genre] WHERE Genre = @Genre";
+                    cmd.CommandText = @"SELECT GenreId, Name FROM [dbo].[Genre] WHERE Name = @Genre";
                     cmd.Parameters.AddWithValue("@Genre", _record.Genre);
                     int genreId = 0;
                     using (SqlDataReader reader = cmd.ExecuteReader())
+
                     {
-                        genreId = reader.GetInt32(reader.GetOrdinal("genreId"));
+                        if (reader.Read())  //Checking the reading for the data 
+                            genreId = reader.GetInt32(reader.GetOrdinal("genreId"));
                     }
                     cmd.CommandText = @"
                     INSERT INTO [dbo].[Record] (Title, ArtistId, GenreId, Price) Values (@Title, @ArtistId, @GenreId, @Price)";

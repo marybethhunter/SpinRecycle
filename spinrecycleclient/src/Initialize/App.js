@@ -1,6 +1,6 @@
 import Nav from '../components/Nav';
 import styled from 'styled-components';
-
+import Home from '../views/Home'
 const Body = styled.div`
   display: flex;
   justify-content: center;
@@ -22,7 +22,11 @@ function App() {
   return (
     <Body>
       <Nav className="nav-expanded" />
-      <Content>Content</Content>
+      <Content>
+		  	<Home />
+	  </Content>
+	
+
     </Body>
   );
 }
