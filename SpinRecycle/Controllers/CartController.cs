@@ -22,16 +22,16 @@ namespace SpinRecycle.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Record record)
+        public IActionResult Post(int recordId)
         {
-            _cartRepo.AddCartRecord(record);
-            return Ok(record);
+            _cartRepo.AddCartRecord(recordId);
+            return Ok(recordId);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if (_cartRepo.RecordFoundInCart(id))
+            if (!_cartRepo.RecordFoundInCart(id))
             {
                 return NotFound();
             }

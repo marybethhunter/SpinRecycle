@@ -11,7 +11,7 @@ namespace SpinRecycle.Data_Access
         bool RecordFoundInCart(int id);
 
         // Add a Record to cart
-        void AddCartRecord(Record record);
+        void AddCartRecord(int id);
 
         // Delete Record from cart
         void DeleteCartRecord(int id);         

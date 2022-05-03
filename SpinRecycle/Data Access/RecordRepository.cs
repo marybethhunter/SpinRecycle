@@ -27,7 +27,7 @@ namespace SpinRecycle.Data_Access
             {
                 Record record = new Record()
                 {
-                    Id = _reader.GetInt32(_reader.GetOrdinal("RecordId")),
+                    RecordId = _reader.GetInt32(_reader.GetOrdinal("RecordId")),
                     Title = _reader.GetString(_reader.GetOrdinal("Title")),
                     Artist = _reader.GetString(_reader.GetOrdinal("Artist")),
                     Genre = _reader.GetString(_reader.GetOrdinal("Genre")),
@@ -159,8 +159,7 @@ namespace SpinRecycle.Data_Access
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO [dbo].[Record]
-                        (Title, Artist, Genre, Price)
+                        INSERT INTO [dbo].[Record] (Title, Artist, Genre, Price)
                         VALUES (@Title, @Artist, @Genre, @Price)
                     ";
                     cmd.Parameters.AddWithValue("@Title", _record.Title);
@@ -182,12 +181,11 @@ namespace SpinRecycle.Data_Access
                 {
                     cmd.CommandText = @"
                         UPDATE [dbo].[Record]
-                        (RecordId, Title, Artist, Genre, Price)
-                        VALUES (@RecordId, @Title, @Artist, @Genre, @Price)
+                        SET Title = @Title, Artist = @Artist, Genre = @Genre, Price = @Price
                         WHERE RecordId = @RecordId
                     ";
 
-                    cmd.Parameters.AddWithValue("@RecordId", _record.Id);
+                    cmd.Parameters.AddWithValue("@RecordId", _record.RecordId);
                     cmd.Parameters.AddWithValue("@Title", _record.Title);
                     cmd.Parameters.AddWithValue("@Artist", _record.Artist);
                     cmd.Parameters.AddWithValue("@Genre", _record.Genre);

@@ -77,7 +77,7 @@ namespace SpinRecycle.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateRecord(Record recordToUpdate)
         {
-            var match = _recordRepository.GetRecordById(recordToUpdate.Id);
+            var match = _recordRepository.GetRecordById(recordToUpdate.RecordId);
             if (match == null)
             {
                 return NotFound();
