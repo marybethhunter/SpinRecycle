@@ -91,7 +91,8 @@ namespace SpinRecycle.Data_Access
                 {
                     cmd.CommandText = @"
                         SELECT * FROM Record
-                        WHERE Title = @title";
+                        WHERE Title = @title
+                    ";
 
                     cmd.Parameters.AddWithValue("@title", _title);
 
@@ -113,7 +114,8 @@ namespace SpinRecycle.Data_Access
                 {
                     cmd.CommandText = @"
                         SELECT * FROM Record
-                        WHERE Artist = @artist";
+                        WHERE Artist = @artist
+                    ";
 
                     cmd.Parameters.AddWithValue("@artist", _artist);
 
@@ -135,7 +137,8 @@ namespace SpinRecycle.Data_Access
                 {
                     cmd.CommandText = @"
                         SELECT * FROM Record
-                        WHERE Genre = @genre";
+                        WHERE Genre = @genre
+                    ";
 
                     cmd.Parameters.AddWithValue("@genre", _genre);
 
@@ -169,6 +172,7 @@ namespace SpinRecycle.Data_Access
                 }
             }
          }
+
         public void UpdateRecord(Record _record)
         {
             using (SqlConnection conn = Connection)
@@ -189,25 +193,28 @@ namespace SpinRecycle.Data_Access
                     cmd.Parameters.AddWithValue("@Genre", _record.Genre);
                     cmd.Parameters.AddWithValue("@Price", _record.Price);
 
-                    var result = cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
           
         }
         public void DeleteRecord(int id)
-        {
-            var item = this.GetRecordById(id);
+        {                
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE [dbo].[Record] FROM Record WHERE RecordId = @RecordId";
+                    cmd.CommandText = @"
+                        DELETE [dbo].[Record]
+                        FROM Record
+                        WHERE RecordId = @RecordId
+                    ";
                     cmd.Parameters.AddWithValue("@RecordId", id);
-                    var result = cmd.ExecuteNonQuery();
+
+                    cmd.ExecuteNonQuery();
                 }
             }
-            
         }
     }
 }

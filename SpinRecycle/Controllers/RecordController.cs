@@ -72,15 +72,8 @@ namespace SpinRecycle.Controllers
                 return NotFound();
             }
         }
-    
-        [HttpPost]
-        public IActionResult Post(Record newRecord)
-        {
-            _recordRepository.AddRecord(newRecord);
-            return Ok(newRecord);
-        }
 
-           
+
         [HttpPut("{id}")]
         public IActionResult UpdateRecord(Record recordToUpdate)
         {
@@ -105,6 +98,19 @@ namespace SpinRecycle.Controllers
             {
                 _recordRepository.DeleteRecord(id);
                 return NoContent();
+            }
+        }
+        [HttpPost]
+        public IActionResult CreateRecord(Record newRecord)
+        {
+            if (newRecord == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _recordRepository.AddRecord(newRecord);
+                return Ok(newRecord);
             }
         }
     }
