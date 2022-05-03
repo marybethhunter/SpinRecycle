@@ -21,7 +21,7 @@ namespace SpinRecycle.Controllers
             return _recordRepository.GetAll();
         } 
 
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         public IActionResult GetRecordByID(int id)
         {
             var match = _recordRepository.GetRecordById(id);
@@ -32,10 +32,10 @@ namespace SpinRecycle.Controllers
 
             return Ok(match);
         }
-        [HttpGet("{name}")]
-        public IActionResult GetRecordByName(string name)
+        [HttpGet("title/{title}")]
+        public IActionResult GetRecordByTitle(string title)
         {
-            var match = _recordRepository.GetRecordByName(name);
+            var match = _recordRepository.GetRecordByTitle(title);
             if (match == null)
             {
                 return NotFound();
@@ -44,7 +44,7 @@ namespace SpinRecycle.Controllers
             return Ok(match);
         }
 
-        [HttpGet("{artist}")]
+        [HttpGet("artist/{artist}")]
 
         public IActionResult GetByArtist(string artist)
         {
@@ -59,7 +59,7 @@ namespace SpinRecycle.Controllers
             }
         }
 
-        [HttpGet("{genre}")]
+        [HttpGet("genre/{genre}")]
         public IActionResult GetByGenre(string genre)
         {
             var matches = _recordRepository.GetByGenre(genre);
@@ -71,7 +71,6 @@ namespace SpinRecycle.Controllers
             {
                 return NotFound();
             }
-            return Ok(matches);
         }
     
         [HttpPost]
@@ -90,7 +89,7 @@ namespace SpinRecycle.Controllers
             {
                 return NotFound();
             }
-            _recordRepository.UpdateRecord(recordToUpdate);
+                _recordRepository.UpdateRecord(recordToUpdate);
                 return NoContent();
            }
 

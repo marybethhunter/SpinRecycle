@@ -2,14 +2,18 @@
 
 namespace SpinRecycle.Data_Access
 {
-    public interface ICartRepository 
+    public interface ICartRepository
     {
-        // Add a Record
-        void AddCartRecord(Record record);
-         // Delete Record
-         void DeleteCartRecord(int id);
-        // GetRecords 
+        // Get Records in cart
         List<Record> GetCartRecords();
-         
+
+        // Check if record exists in cart
+        bool RecordFoundInCart(int id);
+
+        // Add a Record to cart
+        void AddCartRecord(Record record);
+
+        // Delete Record from cart
+        void DeleteCartRecord(int id);         
     }
 }
