@@ -38,12 +38,11 @@ namespace SpinRecycle.Data_Access
                         ON c.RecordId = r.RecordId
                      ";
 
-
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Record> records = new List<Record>();
                     while (reader.Read())
                     {
-                        if (!reader.IsDBNull(0))
+                        if (reader["RecordId"] != DBNull.Value)
                         {
                             Record record = new Record
                             {

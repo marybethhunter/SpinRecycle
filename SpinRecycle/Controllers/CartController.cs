@@ -21,9 +21,10 @@ namespace SpinRecycle.Controllers
             return _cartRepo.GetCartRecords();
         }
 
-        [HttpPost]
-        public IActionResult Post(int recordId)
+        [HttpPost("{id}")]
+        public IActionResult Post(string id)
         {
+            var recordId = int.Parse(id);
             _cartRepo.AddCartRecord(recordId);
             return Ok(recordId);
         }
