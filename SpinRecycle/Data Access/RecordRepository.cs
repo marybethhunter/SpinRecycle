@@ -204,8 +204,7 @@ namespace SpinRecycle.Data_Access
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        DELETE [dbo].[Record]
-                        FROM Record
+                        DELETE FROM Record
                         WHERE RecordId = @RecordId
                     ";
                     cmd.Parameters.AddWithValue("@RecordId", id);
