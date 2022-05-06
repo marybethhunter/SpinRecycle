@@ -1,6 +1,6 @@
-import Nav from '../components/Nav';
 import styled from 'styled-components';
-import Routes from '../routes';
+import Navigation from '../components/Navigation';
+import Routing from '../routes';
 
 const Body = styled.div`
   display: flex;
@@ -22,8 +22,8 @@ const Content = styled.div`
 function App() {
   return (
     <Body>
-      <Nav className="nav-expanded" />
-      <Routes />
+      <Routing />
+      <Navigation className="nav-expanded" />
       <Content>Content</Content>
     </Body>
   );
