@@ -27,7 +27,7 @@ namespace SpinRecycle.Data_Access
             {
                 Record record = new Record()
                 {
-                    Id = _reader.GetInt32(_reader.GetOrdinal("Id")),
+                    RecordId = _reader.GetInt32(_reader.GetOrdinal("RecordId")),
                     Title = _reader.GetString(_reader.GetOrdinal("Title")),
                     Artist = _reader.GetString(_reader.GetOrdinal("Artist")),
                     Genre = _reader.GetString(_reader.GetOrdinal("Genre")),
@@ -39,14 +39,6 @@ namespace SpinRecycle.Data_Access
             return records;
         }
 
-        private readonly string basicQuery = @"
-            SELECT r.RecordId as Id, r.Title, a.[Name] as Artist, g.[Name] as Genre, r.Price
-            FROM Record as r
-            LEFT JOIN Artist as a
-            ON r.ArtistId = a.ArtistId
-            LEFT JOIN Genre as g
-            ON r.GenreId = g.GenreId";
-
         public List<Record> GetAll()
         {
             using (SqlConnection conn = Connection)
@@ -54,14 +46,15 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = basicQuery;
+                    cmd.CommandText = @"
+                        SELECT * FROM Record
+                    ";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         var records = ReadRecords(reader);
                         return records;
                     }
-
                 }
             }
         }
@@ -73,8 +66,10 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = basicQuery + @"
-                        WHERE r.RecordId = @id";
+                    cmd.CommandText = @"
+                        SELECT * FROM Record
+                        WHERE RecordId = @id
+                    ";
 
                     cmd.Parameters.AddWithValue("@id", _id);
 
@@ -87,17 +82,19 @@ namespace SpinRecycle.Data_Access
             }
         }
 
-        public Record GetRecordByName(string _name)
+        public Record GetRecordByTitle(string _title)
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = basicQuery + @"
-                        WHERE r.Title = @title";
+                    cmd.CommandText = @"
+                        SELECT * FROM Record
+                        WHERE Title = @title
+                    ";
 
-                    cmd.Parameters.AddWithValue("@title", _name);
+                    cmd.Parameters.AddWithValue("@title", _title);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -115,8 +112,10 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = basicQuery + @"
-                        WHERE a.[Name] = @artist";
+                    cmd.CommandText = @"
+                        SELECT * FROM Record
+                        WHERE Artist = @artist
+                    ";
 
                     cmd.Parameters.AddWithValue("@artist", _artist);
 
@@ -136,8 +135,10 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = basicQuery + @"
-                        WHERE g.[Name] = @genre";
+                    cmd.CommandText = @"
+                        SELECT * FROM Record
+                        WHERE Genre = @genre
+                    ";
 
                     cmd.Parameters.AddWithValue("@genre", _genre);
 
@@ -157,31 +158,20 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT ArtistId, Artist FROM [dbo].[Artist] WHERE Artist = @Artist";
-                    cmd.Parameters.AddWithValue("@Artist", _record.Artist);
-                    int artistId = 0;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        artistId = reader.GetInt32(reader.GetOrdinal("ArtistId"));
-                    }
-                    cmd.CommandText = @"SELECT GenreId, Genre FROM [dbo].[Genre] WHERE Genre = @Genre";
-                    cmd.Parameters.AddWithValue("@Genre", _record.Genre);
-                    int genreId = 0;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        genreId = reader.GetInt32(reader.GetOrdinal("genreId"));
-                    }
                     cmd.CommandText = @"
-                    INSERT INTO [dbo].[Record] (Title, ArtistId, GenreId, Price) Values (@Title, @ArtistId, @GenreId, @Price)";
+                        INSERT INTO [dbo].[Record] (Title, Artist, Genre, Price)
+                        VALUES (@Title, @Artist, @Genre, @Price)
+                    ";
                     cmd.Parameters.AddWithValue("@Title", _record.Title);
-                    cmd.Parameters.AddWithValue("@ArtistId", artistId);
-                    cmd.Parameters.AddWithValue("@GenreId", genreId);
+                    cmd.Parameters.AddWithValue("@Artist", _record.Artist);
+                    cmd.Parameters.AddWithValue("@Genre", _record.Genre);
                     cmd.Parameters.AddWithValue("@Price", _record.Price);
-                    int id = (int)cmd.ExecuteScalar();
-                    _record.Id = id;
+
+                    cmd.ExecuteNonQuery();
                 }
             }
          }
+
         public void UpdateRecord(Record _record)
         {
             using (SqlConnection conn = Connection)
@@ -189,48 +179,39 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT ArtistId, Artist FROM [dbo].[Artist] WHERE Artist = @Artist";
-                    cmd.Parameters.AddWithValue("@Artist", _record.Artist);
-                    int artistId = 0;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        artistId = reader.GetInt32(reader.GetOrdinal("ArtistId"));
-                    }
-                    cmd.CommandText = @"SELECT GenreId, Genre FROM [dbo].[Genre] WHERE Genre = @Genre";
-                    cmd.Parameters.AddWithValue("@Genre", _record.Genre);
-                    int genreId = 0;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        genreId = reader.GetInt32(reader.GetOrdinal("genreId"));
-                    }
                     cmd.CommandText = @"
-                    UPDATE [dbo].[Record] (Title, ArtistId, GenreId, Price) Values (@Title, @ArtistId, @GenreId, @Price) WHERE RecordId = @RecordId";
+                        UPDATE [dbo].[Record]
+                        SET Title = @Title, Artist = @Artist, Genre = @Genre, Price = @Price
+                        WHERE RecordId = @RecordId
+                    ";
 
+                    cmd.Parameters.AddWithValue("@RecordId", _record.RecordId);
                     cmd.Parameters.AddWithValue("@Title", _record.Title);
-                    cmd.Parameters.AddWithValue("@ArtistId", artistId);
-                    cmd.Parameters.AddWithValue("@GenreId", genreId);
+                    cmd.Parameters.AddWithValue("@Artist", _record.Artist);
+                    cmd.Parameters.AddWithValue("@Genre", _record.Genre);
                     cmd.Parameters.AddWithValue("@Price", _record.Price);
-                    cmd.Parameters.AddWithValue("@RecordId", _record.Id);
 
-                    var result = cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                 }
             }
           
         }
         public void DeleteRecord(int id)
-        {
-            var item = this.GetRecordById(id);
+        {                
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE [dbo].[Record] FROM Record WHERE RecordId = @RecordId";
+                    cmd.CommandText = @"
+                        DELETE FROM Record
+                        WHERE RecordId = @RecordId
+                    ";
                     cmd.Parameters.AddWithValue("@RecordId", id);
-                    var result = cmd.ExecuteNonQuery();
+
+                    cmd.ExecuteNonQuery();
                 }
             }
-            
         }
     }
 }

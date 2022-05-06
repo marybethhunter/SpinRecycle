@@ -2,8 +2,6 @@
 using SpinRecycle.Data_Access;
 using SpinRecycle.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SpinRecycle.Controllers
 {
     [Route("api/[controller]")]
@@ -16,32 +14,31 @@ namespace SpinRecycle.Controllers
             _cartRepo = cartRepository;
         }
 
-        // GET: api/Records
+        // GET: api/cart
         [HttpGet]
         public List<Record> Get()
         {
             return _cartRepo.GetCartRecords();
         }
 
-        [HttpPost]
-        public IActionResult Post(Record record)
+        [HttpPost("{id}")]
+        public IActionResult Post(string id)
         {
-            _cartRepo.AddCartRecord(record);
-            return Ok(record);
+            var recordId = int.Parse(id);
+            _cartRepo.AddCartRecord(recordId);
+            return Ok(recordId);
         }
 
-
-        [HttpDelete("{record}")]
-        public IActionResult Delete(int record)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            var match = _cartRepo.GetCartRecords();
-            if (match == null)
+            if (!_cartRepo.RecordFoundInCart(id))
             {
                 return NotFound();
             }
             else
             {
-                _cartRepo.DeleteCartRecord(record);
+                _cartRepo.DeleteCartRecord(id);
                 return NoContent();
             }
         }
