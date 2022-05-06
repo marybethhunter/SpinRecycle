@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import NavIcon from './NavIcon';
 
-const BarBody = styled.div`
+const NavContainer = styled.div`
+  position: absolute;
+  left: 0;
+`;
+
+const NavBody = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
   height: 100vh;
-  width: 250px;
   padding: 15px;
 
   background-color: lightblue;
@@ -17,12 +22,17 @@ const Header = styled.div`
 `;
 
 export default function Navigation() {
+  const [expanded, setExpanded] = useState(true);
+
   return (
-    <BarBody>
-      <Header>Spin Recycle</Header>
-      <a href='/home'>Home</a>
-      <a href='/shop'>Shop</a>
-      <a href='/cart'>Cart</a>
-    </BarBody>
+    <NavContainer>
+      <NavIcon />
+      <NavBody className={expanded ? }>
+        <Header>Spin Recycle</Header>
+        <a href='/home'>Home</a>
+        <a href='/shop'>Shop</a>
+        <a href='/cart'>Cart</a>
+      </NavBody>
+    </NavContainer>
   )
 }
