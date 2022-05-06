@@ -4,26 +4,38 @@ using SpinRecycle.Models;
 
 namespace SpinRecycle.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/records")]
     [ApiController]
-    public class RecordController : ControllerBase
-    {
-        private readonly IRecordRepository _recRepo;
-        public RecordController(IRecordRepository recRepository)
-        {
-            _recRepo = recRepository;
-        }
+    public class RecordsController : ControllerBase
 
-        [HttpGet] // GET: api/record
+    {
+        private readonly IRecordRepository _recordRepository;
+        public RecordsController(IRecordRepository recordRepository)
+        {
+            _recordRepository = recordRepository;
+        }
+              
+        [HttpGet]
         public List<Record> GetAllRecords()
         {
-            return _recRepo.GetAll();
-        }
+            return _recordRepository.GetAll();
+        } 
 
         [HttpGet("id/{id}")]
-        public IActionResult GetRecordById(int id)
+        public IActionResult GetRecordByID(int id)
         {
-            var match = _recRepo.GetRecordById(id);
+            var match = _recordRepository.GetRecordById(id);
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(match);
+        }
+        [HttpGet("title/{title}")]
+        public IActionResult GetRecordByTitle(string title)
+        {
+            var match = _recordRepository.GetRecordByTitle(title);
             if (match == null)
             {
                 return NotFound();
@@ -32,39 +44,77 @@ namespace SpinRecycle.Controllers
             return Ok(match);
         }
 
-        [HttpGet("name/{name}")]
-        public IActionResult GetRecordByName(string name)
-        {
-            var match = _recRepo.GetRecordByName(name);
-            if (match == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(match);
-        }
         [HttpGet("artist/{artist}")]
-        public IActionResult GetRecordByArtist(string artist)
+
+        public IActionResult GetByArtist(string artist)
         {
-            var match = _recRepo.GetByArtist(artist);
-            if (match == null)
+            var matches = _recordRepository.GetByArtist(artist);
+            if (matches != null)
+            {
+                return Ok(matches);
+            }
+            else
             {
                 return NotFound();
             }
-
-            return Ok(match);
         }
+
         [HttpGet("genre/{genre}")]
-        public IActionResult GetRecordByGenre(string genre)
+        public IActionResult GetByGenre(string genre)
         {
-            var match = _recRepo.GetByGenre(genre);
+            var matches = _recordRepository.GetByGenre(genre);
+            if (matches != null)
+            {
+                return Ok(matches);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateRecord(Record recordToUpdate)
+        {
+            var match = _recordRepository.GetRecordById(recordToUpdate.RecordId);
             if (match == null)
             {
                 return NotFound();
             }
+                _recordRepository.UpdateRecord(recordToUpdate);
+                return NoContent();
+           }
 
-            return Ok(match);
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var match = _recordRepository.GetRecordById(id);
+            if (match == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _recordRepository.DeleteRecord(id);
+                return NoContent();
+            }
+        }
+        [HttpPost]
+        public IActionResult CreateRecord(Record newRecord)
+        {
+            if (newRecord == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _recordRepository.AddRecord(newRecord);
+                return Ok(newRecord);
+            }
         }
     }
 }
+
+
 

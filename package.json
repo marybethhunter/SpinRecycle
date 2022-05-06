@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0",
+    "eslint-config-react-app": "^7.0.1"
+  }
+}
