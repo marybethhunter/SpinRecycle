@@ -10,4 +10,10 @@ const getAllRecords = () =>
       .catch(reject);
   });
 
-export default getAllRecords;
+  const addRecordToCart = (recordId) => new Promise((resolve, reject) => {
+    axios.post(`${dbURL}/Cart/${recordId}`)
+      .then(resolve)
+      .catch(reject);
+  });
+
+export { getAllRecords, addRecordToCart };
