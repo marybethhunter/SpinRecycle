@@ -1,5 +1,5 @@
-import Nav from '../components/Nav';
 import styled from 'styled-components';
+import Navigation from '../components/Navigation';
 import Routing from '../routes';
 
 const Body = styled.div`
@@ -22,8 +22,8 @@ const Content = styled.div`
 function App() {
   return (
     <Body>
-      <Nav className="nav-expanded" />
       <Routing />
+      <Navigation className="nav-expanded" />
       <Content>Content</Content>
     </Body>
   );

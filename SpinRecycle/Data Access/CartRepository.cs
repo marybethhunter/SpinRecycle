@@ -26,53 +26,75 @@ namespace SpinRecycle.Data_Access
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT c.RecordId AS CartRecordId, 
-                                      r.RecordId AS RecordId,
-                                      a.[Name] AS ArtistName,
-                                      g.[Name] AS Genre,
-                                      r.Title, 
-                                      Price
-                                      FROM Cart As c
-                                      LEFT JOIN Record r 
-                                      ON c.RecordId = r.RecordId 
-                                      LEFT JOIN Artist as a
-                                      ON r.ArtistId = a.ArtistId
-                                      LEFT JOIN Genre as g
-                                      ON r.GenreId = g.GenreId
-                                             ";
-
+                    cmd.CommandText = @"
+                        SELECT c.RecordId as CartRecordId,
+                        r.RecordId as RecordId,
+                        r.Title,
+                        r.Artist,
+                        r.Genre,
+                        r.Price
+                        FROM Cart as c
+                        LEFT JOIN Record as r
+                        ON c.RecordId = r.RecordId
+                     ";
 
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Record> records = new List<Record>();
                     while (reader.Read())
                     {
-                        Record record = new Record
+                        if (reader["RecordId"] != DBNull.Value)
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("RecordId")),
-                            // Title
-                            Title = reader.GetString(reader.GetOrdinal("Title")),
-                            // Artist
-                            Artist = reader.GetString(reader.GetOrdinal("ArtistName")),
-                            // Genre
-                            Genre = reader.GetString(reader.GetOrdinal("GenreName")),
-                            // Price 
-                            Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                        };
-
-                        records.Add(record);
-
-
+                            Record record = new Record
+                            {
+                                RecordId = reader.GetInt32(reader.GetOrdinal("RecordId")),
+                                Title = reader.GetString(reader.GetOrdinal("Title")),
+                                Artist = reader.GetString(reader.GetOrdinal("Artist")),
+                                Genre = reader.GetString(reader.GetOrdinal("Genre")),
+                                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                            };
+                            records.Add(record);
+                        }
                     }
-
                     reader.Close();
                     return records;
                 }
             }
         }
 
+        public bool RecordFoundInCart(int recordId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT * FROM Cart
+                        WHERE RecordId = @id
+                    ";
+
+                    cmd.Parameters.AddWithValue("@id", recordId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    bool found = false;
+                    while (reader.Read())
+                    {
+                        var rId = reader.GetInt32(reader.GetOrdinal("RecordId"));
+                        if (rId == recordId)
+                        {
+                            found = true;
+                        }
+                    }
+                    reader.Close();
+                    return found;
+                }
+            }
+        }
 
 
-        public void AddCartRecord(Record record)
+
+        public void AddCartRecord(int recordId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -80,17 +102,18 @@ namespace SpinRecycle.Data_Access
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Cart 
-                    VALUES @RecordId;
+                        INSERT INTO Cart (RecordId)
+                        VALUES (@id);
                      ";
 
-                    cmd.Parameters.AddWithValue("@RecordId", record.Id);
-                                  
+                    cmd.Parameters.AddWithValue("@id", recordId);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public void DeleteCartRecord(int RecordId)
+        public void DeleteCartRecord(int recordId)
         {
             using (SqlConnection conn = Connection)
             {
@@ -103,7 +126,7 @@ namespace SpinRecycle.Data_Access
                             WHERE RecordId = @id
                         ";
 
-                    cmd.Parameters.AddWithValue("@id", RecordId);
+                    cmd.Parameters.AddWithValue("@id", recordId);
 
                     cmd.ExecuteNonQuery();
                 }
