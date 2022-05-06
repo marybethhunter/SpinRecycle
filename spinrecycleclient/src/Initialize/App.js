@@ -1,6 +1,6 @@
-import Nav from '../components/Nav';
-import styled from 'styled-components';
-import Routing from '../routes';
+import Nav from "../components/Nav";
+import styled from "styled-components";
+import Routing from "../routes";
 
 const Body = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ function App() {
     <Body>
       <Nav className="nav-expanded" />
       <Routing />
-      <Content>Content</Content>
+      <Content></Content>
     </Body>
   );
 }
