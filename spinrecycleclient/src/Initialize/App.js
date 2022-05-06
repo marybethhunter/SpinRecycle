@@ -22,9 +22,11 @@ const Content = styled.div`
 function App() {
   return (
     <Body>
-      <Routing />
       <Navigation className="nav-expanded" />
-      <Content>Content</Content>
+      
+      <Content>
+        <Routing />
+      </Content>
     </Body>
   );
 }

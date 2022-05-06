@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import recordLogo from '../images/RecordLogo.png'
+import PropTypes from 'prop-types';
 
 const RecordIcon = styled.img`
   width: 50px;
@@ -10,15 +11,17 @@ const RecordIcon = styled.img`
   top: 10px;
 `;
 
-export default function NavIcon() {
-  const [expanded, setExpanded] = useState(true);
-
+export default function NavIcon({expanded, setExpanded}) {
   const recordClick = () => {
     setExpanded(!expanded);
-    console.log("record click");
   }
 
   return (
     <RecordIcon src={recordLogo} onClick={recordClick} className={expanded ? "navIcon-expanded" : "navIcon-hidden"} />
   )
+}
+
+NavIcon.propTypes = {
+  expanded: PropTypes.bool.isRequired,
+  setExpanded: PropTypes.func.isRequired
 }

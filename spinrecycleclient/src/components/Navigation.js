@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import NavIcon from './NavIcon';
 
 const NavContainer = styled.div`
-  position: absolute;
+  position: relative;
   left: 0;
 `;
 
@@ -19,6 +19,7 @@ const NavBody = styled.div`
 
 const Header = styled.div`
   font-size: 150%;
+  white-space: nowrap;
 `;
 
 export default function Navigation() {
@@ -26,12 +27,12 @@ export default function Navigation() {
 
   return (
     <NavContainer>
-      <NavIcon />
-      <NavBody className={expanded ? "" : ""}>
-        <Header>Spin Recycle</Header>
-        <a href='/home'>Home</a>
-        <a href='/shop'>Shop</a>
-        <a href='/cart'>Cart</a>
+      <NavIcon expanded={expanded} setExpanded={setExpanded} />
+      <NavBody className={expanded ? "navBody-expanded" : "navBody-hidden"}>
+        <Header className={expanded ? "nav-expanded" : "nav-hidden"}>Spin Recycle</Header>
+        <a href='/home' className={expanded ? "nav-expanded" : "nav-hidden"}>Home</a>
+        <a href='/shop' className={expanded ? "nav-expanded" : "nav-hidden"}>Shop</a>
+        <a href='/cart' className={expanded ? "nav-expanded" : "nav-hidden"}>Cart</a>
       </NavBody>
     </NavContainer>
   )
