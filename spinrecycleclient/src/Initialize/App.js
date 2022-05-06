@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import Nav from "../components/Nav";
-import styled from "styled-components";
-import Routing from "../routes";
-=======
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
 import Routing from '../routes';
->>>>>>> master
 
 const Body = styled.div`
   display: flex;
