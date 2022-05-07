@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CardBody = styled.div`
-
+  
 `;
 
 const AlbumCover = styled.img``;
@@ -22,6 +22,6 @@ function RecordCard(props) {
   )
 }
 
-//Record.propTypes = {}
+RecordCard.propTypes = {}
 
-//export default Record
+export default RecordCard

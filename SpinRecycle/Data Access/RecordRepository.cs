@@ -32,6 +32,7 @@ namespace SpinRecycle.Data_Access
                     Artist = _reader.GetString(_reader.GetOrdinal("Artist")),
                     Genre = _reader.GetString(_reader.GetOrdinal("Genre")),
                     Price = _reader.GetDecimal(_reader.GetOrdinal("Price")),
+                    Image = _reader.GetString(_reader.GetOrdinal("Image"))
                 };
                 records.Add(record);
             }
@@ -159,13 +160,14 @@ namespace SpinRecycle.Data_Access
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO [dbo].[Record] (Title, Artist, Genre, Price)
-                        VALUES (@Title, @Artist, @Genre, @Price)
+                        INSERT INTO [dbo].[Record] (Title, Artist, Genre, Price, Image)
+                        VALUES (@Title, @Artist, @Genre, @Price, @Image)
                     ";
                     cmd.Parameters.AddWithValue("@Title", _record.Title);
                     cmd.Parameters.AddWithValue("@Artist", _record.Artist);
                     cmd.Parameters.AddWithValue("@Genre", _record.Genre);
                     cmd.Parameters.AddWithValue("@Price", _record.Price);
+                    cmd.Parameters.AddWithValue("@Image", _record.Image);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -181,7 +183,7 @@ namespace SpinRecycle.Data_Access
                 {
                     cmd.CommandText = @"
                         UPDATE [dbo].[Record]
-                        SET Title = @Title, Artist = @Artist, Genre = @Genre, Price = @Price
+                        SET Title = @Title, Artist = @Artist, Genre = @Genre, Price = @Price, Image = @Image
                         WHERE RecordId = @RecordId
                     ";
 
@@ -190,6 +192,7 @@ namespace SpinRecycle.Data_Access
                     cmd.Parameters.AddWithValue("@Artist", _record.Artist);
                     cmd.Parameters.AddWithValue("@Genre", _record.Genre);
                     cmd.Parameters.AddWithValue("@Price", _record.Price);
+                    cmd.Parameters.AddWithValue("@Image", _record.Image);
 
                     cmd.ExecuteNonQuery();
                 }

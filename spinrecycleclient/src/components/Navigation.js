@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import NavIcon from './NavIcon';
 
-const BarBody = styled.div`
+const NavContainer = styled.div`
+  position: relative;
+  left: 0;
+`;
+
+const NavBody = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
   height: 100vh;
-  width: 250px;
   padding: 15px;
 
   background-color: lightblue;
@@ -14,15 +19,21 @@ const BarBody = styled.div`
 
 const Header = styled.div`
   font-size: 150%;
+  white-space: nowrap;
 `;
 
 export default function Navigation() {
+  const [expanded, setExpanded] = useState(true);
+
   return (
-    <BarBody>
-      <Header>Spin Recycle</Header>
-      <a href='/home'>Home</a>
-      <a href='/shop'>Shop</a>
-      <a href='/cart'>Cart</a>
-    </BarBody>
+    <NavContainer>
+      <NavIcon expanded={expanded} setExpanded={setExpanded} />
+      <NavBody className={expanded ? "navBody-expanded" : "navBody-hidden"}>
+        <Header className={expanded ? "nav-expanded" : "nav-hidden"}>Spin Recycle</Header>
+        <a href='/home' className={expanded ? "nav-expanded" : "nav-hidden"}>Home</a>
+        <a href='/shop' className={expanded ? "nav-expanded" : "nav-hidden"}>Shop</a>
+        <a href='/cart' className={expanded ? "nav-expanded" : "nav-hidden"}>Cart</a>
+      </NavBody>
+    </NavContainer>
   )
 }
