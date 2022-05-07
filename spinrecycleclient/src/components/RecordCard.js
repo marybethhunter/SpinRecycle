@@ -23,6 +23,6 @@ function RecordCard(props) {
   )
 }
 
-Record.propTypes = {}
+RecordCard.propTypes = {}
 
-export default Record
+export default RecordCard

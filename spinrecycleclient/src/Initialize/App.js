@@ -21,8 +21,10 @@ function App() {
   return (
     <Body>
       <Navigation className="nav-expanded" />
-      <Routing />
-      {/* <Content>Content</Content> */}
+      
+      <Content>
+        <Routing />
+      </Content>
     </Body>
   );
 }

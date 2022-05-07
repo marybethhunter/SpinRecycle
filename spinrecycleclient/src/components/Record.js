@@ -20,7 +20,6 @@ const ButtonStyle = styled(Button)`
   width: 150px;
   height: 40px;
 `;
-
 export default function Record({ record }) {
   return (
     <CardStyle>
