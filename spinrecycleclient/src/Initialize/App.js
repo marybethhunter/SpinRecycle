@@ -6,8 +6,7 @@ const Body = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-
-  background-color: pink;
+  background-color: white;
 `;
 
 const Content = styled.div`
@@ -15,7 +14,6 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-
   width: 100%;
 `;
 
