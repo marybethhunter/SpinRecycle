@@ -150,83 +150,14 @@ namespace SpinRecycle.Data_Access
                 }
             }
         }
-<<<<<<< HEAD
-        public void Add(Record _record)
-=======
 
         public void AddRecord(Record _record)
->>>>>>> master
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-<<<<<<< HEAD
-
-                    cmd.CommandText = @"SELECT ArtistId, Artist FROM [dbo].[Artist] WHERE Artist = @Artist";
-                    cmd.Parameters.AddWithValue("@Artist", _record.Artist);
-                    int artistId = 0;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        artistId = reader.GetInt32(reader.GetOrdinal("ArtistId"));
-                    }
-
-                    cmd.CommandText = @"SELECT GenreId, Genre FROM [dbo].[Genre] WHERE Genre = @Genre";
-                    cmd.Parameters.AddWithValue("@Genre", _record.Genre);
-                    int genreId = 0;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        genreId = reader.GetInt32(reader.GetOrdinal("genreId"));
-                    }
-
-                    cmd.CommandText = @"
-                    INSERT INTO [dbo].[Record] (Title, ArtistId, GenreId, Price) Values (@Title, @ArtistId, @GenreId, @Price)";
-                    cmd.Parameters.AddWithValue("@Title", _record.Title);
-                    cmd.Parameters.AddWithValue("@ArtistId", artistId);
-                    cmd.Parameters.AddWithValue("@GenreId", genreId);
-                    cmd.Parameters.AddWithValue("@GenreId", _record.Price);
-
-                    var result = cmd.ExecuteNonQuery();
-                }
-            }
-
-            /*public void Update(Record _record)
-            {
-                using (SqlConnection conn = Connection)
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = conn.CreateCommand())
-                    {
-
-                        cmd.CommandText = @"SELECT ArtistId, Artist FROM [dbo].[Artist] WHERE Artist = @Artist";
-                        cmd.Parameters.AddWithValue("@Artist", _record.Artist);
-                        int artistId = 0;
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            artistId = reader.GetInt32(reader.GetOrdinal("ArtistId"));
-                        }
-
-                        cmd.CommandText = @"SELECT GenreId, Genre FROM [dbo].[Genre] WHERE Genre = @Genre";
-                        cmd.Parameters.AddWithValue("@Genre", _record.Genre);
-                        int genreId = 0;
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            genreId = reader.GetInt32(reader.GetOrdinal("genreId"));
-                        }
-                        //update statement Where Record = @RecordId
-                        cmd.CommandText = @"
-                    INSERT INTO [dbo].[Record] (Title, ArtistId, GenreId, Price) Values (@Title, @ArtistId, @GenreId, @Price)";
-                        cmd.Parameters.AddWithValue("@Title", _record.Title);
-                        cmd.Parameters.AddWithValue("@ArtistId", artistId);
-                        cmd.Parameters.AddWithValue("@GenreId", genreId);
-                        cmd.Parameters.AddWithValue("@GenreId", _record.Price);
-
-                        var result = cmd.ExecuteNonQuery();
-                    }
-                }
-            }*/
-=======
                     cmd.CommandText = @"
                         INSERT INTO [dbo].[Record] (Title, Artist, Genre, Price)
                         VALUES (@Title, @Artist, @Genre, @Price)
@@ -281,7 +212,6 @@ namespace SpinRecycle.Data_Access
                     cmd.ExecuteNonQuery();
                 }
             }
->>>>>>> master
         }
     }
 }
