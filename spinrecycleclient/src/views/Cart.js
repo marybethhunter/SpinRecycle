@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import getCart from '../data/cartData';
+import CartCard from '../components/CartCard';
 
 export default function Cart() {
     const [cart, setCart] = useState([])

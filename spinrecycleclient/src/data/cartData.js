@@ -1,7 +1,6 @@
 import axios from "axios";
 
-//dummy URL - fix below promise - just adding to skeleton right now
-const dbURL = "www.google.com";
+const dbURL = "https://localhost:7115/api";
 
 const getCart = () =>
   new Promise((resolve, reject) => {
