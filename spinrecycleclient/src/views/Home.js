@@ -19,12 +19,12 @@ export default function Home() {
   return (
     <HomeStyle>
       <h1>VINYL DESTINATION</h1>
-      <img
+      {/* <img
         src="https://www.customwallpaper.net.au/wp-content/uploads/2015/12/AdobeStock_69158069-1024x685.jpeg"
         alt="Cluttered Couch"
         width="800"
         height="600"
-      />
+      /> */}
       <h3>VINYL FANTASY!</h3>
     </HomeStyle>
   );

@@ -6,7 +6,11 @@ const Body = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  background-color: white;
+
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: pink;
 `;
 
 const Content = styled.div`
@@ -15,13 +19,14 @@ const Content = styled.div`
   justify-content: center;
   text-align: center;
   width: 100%;
+  min-height: 100vh;
+  background-color: white;
 `;
 
 function App() {
   return (
     <Body>
-      <Navigation className="nav-expanded" />
-      
+      <Navigation />
       <Content>
         <Routing />
       </Content>
