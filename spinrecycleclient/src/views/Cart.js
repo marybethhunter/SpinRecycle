@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
-import CartCard from "../components/CartCard"
+import Record from '../components/Record';
 import { getCart } from '../data/cartData';
 
 const Content = styled.div`
@@ -13,12 +13,12 @@ const Content = styled.div`
 `;
 
 export default function Cart() {
-    const [cart, setCart] = useState([])
+    const [records, setRecords] = useState([])
 
     useEffect(() => {
         let isMounted = true;
-        getCart().then((cartArray) => {
-            if (isMounted) setCart(cartArray);
+        getCart().then((recordsArray) => {
+            if (isMounted) setRecords(recordsArray);
         });
         return () => {
             isMounted = false;
@@ -27,8 +27,8 @@ export default function Cart() {
 
   return (
   <Content>
-    {cart.map((item) => (
-      <CartCard key={item.recordId} cart={cart} />
+    {records.map((record) => (
+      <Record key={record.recordId} record={record} />
     ))}
   </Content>
   )

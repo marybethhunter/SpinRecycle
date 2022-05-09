@@ -5,7 +5,7 @@ const dbURL = "https://localhost:7115/api";
 const getCart = () =>
   new Promise((resolve, reject) => {
     axios
-      .get(`${dbURL}/cart.json`)
+      .get(`${dbURL}/Cart`)
       .then((response) => resolve(Object.values(response.data)))
       .catch(reject);
   });

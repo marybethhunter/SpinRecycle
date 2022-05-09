@@ -32,7 +32,7 @@ const ButtonStyle = styled(Button)`
   box-shadow: 2px 2px 1px;
 `;
 
-export default function Cart({ cart }) {
+export default function CartCard({ cart }) {
     const history = useNavigate();
   return (
    <CardStyle>
@@ -59,8 +59,8 @@ export default function Cart({ cart }) {
   );
 }
 
-Cart.PropTypes = {
-  record: PropTypes.shape({
+CartCard.PropTypes = {
+  cart: PropTypes.shape({
     artist: PropTypes.string,
     recordId: PropTypes.number,
     genre: PropTypes.string,
