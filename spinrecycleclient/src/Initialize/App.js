@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
 import Routing from '../routes';
+import {useState} from 'react';
+import backgroundImg from '../images/background.png';
 
 const Body = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  background-color: white;
+
+  position: relative;
+  background-image: url(${backgroundImg});
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 `;
 
 const Content = styled.div`
@@ -15,13 +22,15 @@ const Content = styled.div`
   justify-content: center;
   text-align: center;
   width: 100%;
+  min-height: 100vh;
 `;
 
 function App() {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <Body>
-      <Navigation className="nav-expanded" />
-      
+      <Navigation expanded={expanded} setExpanded={setExpanded} />
       <Content>
         <Routing />
       </Content>

@@ -1,10 +1,10 @@
-.navBody-expanded {
-  width: 250px;
+.navContent-expanded {
+  width: 280px;
   transition: width 0.4s ease-in 0.05s;
 }
 
-.navBody-hidden {
-  width: 40px;
+.navContent-hidden {
+  width: 70px;
   transition: width 0.4s ease-out 0.25s;
 }
 
