@@ -20,3 +20,8 @@ code {
   background-color: rgb(5, 129, 57);
   color: white;
 }
+
+.delete-from-cart-btn:hover {
+  background-color: red;
+  color: white;
+}

@@ -12,6 +12,7 @@ import {
   Button,
 } from "reactstrap";
 import { addRecordToCart } from "../data/recordData";
+import { deleteCartItem } from "../data/cartData";
 
 const CardStyle = styled(Card)`
   border: 2px black solid;
@@ -31,7 +32,7 @@ const ButtonStyle = styled(Button)`
   border: 2px solid black;
   box-shadow: 2px 2px 1px;
 `;
-export default function Record({ record }) {
+export default function Record({ record, inShop }) {
   const history = useNavigate();
   return (
     <CardStyle>
@@ -45,15 +46,27 @@ export default function Record({ record }) {
         <CardText tag="h4">{record.artist}</CardText>
         <CardText tag="h4">${record.price}</CardText>
         <CardSubtitle tag="h5">{record.genre}</CardSubtitle>
-        <ButtonStyle
-          className="add-to-cart-btn"
-          onClick={() => {
-            addRecordToCart(record.recordId);
-            history('/cart');
-          }}
-        >
-          Add To Cart
-        </ButtonStyle>
+        {inShop && (
+          <ButtonStyle
+            className="add-to-cart-btn"
+            onClick={() => {
+              addRecordToCart(record.recordId);
+              history("/cart");
+            }}
+          >
+            Add To Cart
+          </ButtonStyle>
+        )}
+        {!inShop && (
+          <ButtonStyle
+            className="delete-from-cart-btn"
+            onClick={() =>
+              deleteCartItem(record.recordId)
+            }
+          >
+            Delete From Cart
+          </ButtonStyle>
+        )}
       </CardBody>
     </CardStyle>
   );
