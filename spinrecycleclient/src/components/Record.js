@@ -15,22 +15,21 @@ import { addRecordToCart } from "../data/recordData";
 import { deleteCartItem } from "../data/cartData";
 
 const CardStyle = styled(Card)`
-  border: 2px black solid;
-  background-color: white;
-  border-radius: 5px;
+  background-color: #F9F6EE;
+  border-radius: 10px;
+  border: black 5px solid;
   margin: 20px;
   padding: 0px;
-  box-shadow: 8px 8px 4px;
 `;
 
 const ButtonStyle = styled(Button)`
   border-radius: 5px;
-  background-color: seafoam;
+  background-color: #F9F6EE;
   width: 150px;
   height: 40px;
   margin-bottom: 10px;
   border: 2px solid black;
-  box-shadow: 2px 2px 1px;
+  box-shadow: 1px 1px 1px;
 `;
 export default function Record({ record, inShop }) {
   const history = useNavigate();
