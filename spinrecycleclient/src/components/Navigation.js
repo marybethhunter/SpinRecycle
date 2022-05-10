@@ -1,23 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import NavIcon from './NavIcon';
+import PropTypes from 'prop-types';
 
 const NavContainer = styled.div`
   display: flex;
   position: sticky;
   top: 0px;
-  padding: 80px 0px;
-
+  height: 100vh;
   border-right: 2px dotted black;
 
-
-  background-color: lightblue;
+  background-color: gray;
 `;
 
 const NavContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 75px;
 
   border-top: 2px dotted black;
 `;
@@ -33,9 +33,7 @@ const NavLink = styled.a`
   font-size: 120%;
 `;
 
-export default function Navigation() {
-  const [expanded, setExpanded] = useState(false);
-
+export default function Navigation({expanded, setExpanded}) {
   return (
     <NavContainer>
       <NavIcon expanded={expanded} setExpanded={setExpanded} />
@@ -47,4 +45,9 @@ export default function Navigation() {
       </NavContent>
     </NavContainer>
   )
+}
+
+Navigation.propTypes = {
+  expanded: PropTypes.bool.isRequired,
+  setExpanded: PropTypes.func.isRequired
 }

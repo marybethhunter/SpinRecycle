@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
 import Routing from '../routes';
+import {useState} from 'react'
 
 const Body = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
 
-  position: absolute;
-  height: 100%;
-  width: 100%;
+  position: relative;
+  /* position: absolute; */
+  /* height: 100%; */
+  /* width: 100%; */
   background-color: pink;
 `;
 
@@ -24,9 +26,11 @@ const Content = styled.div`
 `;
 
 function App() {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <Body>
-      <Navigation />
+      <Navigation expanded={expanded} setExpanded={setExpanded} />
       <Content>
         <Routing />
       </Content>
