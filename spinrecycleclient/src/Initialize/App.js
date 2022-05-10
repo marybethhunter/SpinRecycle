@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
 import Routing from '../routes';
-import {useState} from 'react'
+import {useState} from 'react';
+import backgroundImg from '../images/background.png';
 
 const Body = styled.div`
   display: flex;
@@ -9,10 +10,10 @@ const Body = styled.div`
   text-align: center;
 
   position: relative;
-  /* position: absolute; */
-  /* height: 100%; */
-  /* width: 100%; */
-  background-color: pink;
+  background-image: url(${backgroundImg});
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 `;
 
 const Content = styled.div`
@@ -22,7 +23,6 @@ const Content = styled.div`
   text-align: center;
   width: 100%;
   min-height: 100vh;
-  background-color: white;
 `;
 
 function App() {

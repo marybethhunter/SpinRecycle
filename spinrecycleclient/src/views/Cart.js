@@ -9,7 +9,6 @@ const Content = styled.div`
   justify-content: center;
   text-align: center;
   padding-top: 10px;
-  background-color: white;
 `;
 
 export default function Cart() {
