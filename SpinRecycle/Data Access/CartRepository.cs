@@ -32,7 +32,8 @@ namespace SpinRecycle.Data_Access
                         r.Title,
                         r.Artist,
                         r.Genre,
-                        r.Price
+                        r.Price,
+                        r.Image
                         FROM Cart as c
                         LEFT JOIN Record as r
                         ON c.RecordId = r.RecordId
@@ -51,6 +52,7 @@ namespace SpinRecycle.Data_Access
                                 Artist = reader.GetString(reader.GetOrdinal("Artist")),
                                 Genre = reader.GetString(reader.GetOrdinal("Genre")),
                                 Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                                Image = reader.GetString(reader.GetOrdinal("Image")),
                             };
                             records.Add(record);
                         }
