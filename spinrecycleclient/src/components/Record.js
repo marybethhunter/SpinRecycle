@@ -31,7 +31,7 @@ const ButtonStyle = styled(Button)`
   border: 2px solid black;
   box-shadow: 2px 2px 1px;
 `;
-export default function Record({ record }) {
+export default function Record({ record, inShop }) {
   const history = useNavigate();
   return (
     <CardStyle>
@@ -45,15 +45,27 @@ export default function Record({ record }) {
         <CardText tag="h4">{record.artist}</CardText>
         <CardText tag="h4">${record.price}</CardText>
         <CardSubtitle tag="h5">{record.genre}</CardSubtitle>
-        <ButtonStyle
-          className="add-to-cart-btn"
-          onClick={() => {
-            addRecordToCart(record.recordId);
-            history('/cart');
-          }}
-        >
-          Add To Cart
-        </ButtonStyle>
+        {inShop && (
+          <ButtonStyle
+            className="add-to-cart-btn"
+            onClick={() => {
+              addRecordToCart(record.recordId);
+              history("/cart");
+            }}
+          >
+            Add To Cart
+          </ButtonStyle>
+        )}
+        {!inShop && (
+          <ButtonStyle
+            className="add-to-cart-btn"
+            onClick={() => {
+              //function to delete cart
+            }}
+          >
+            Delete From Cart
+          </ButtonStyle>
+        )}
       </CardBody>
     </CardStyle>
   );
