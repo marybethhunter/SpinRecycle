@@ -12,6 +12,7 @@ import {
   Button,
 } from "reactstrap";
 import { addRecordToCart } from "../data/recordData";
+import { deleteCartItem } from "../data/cartData";
 
 const CardStyle = styled(Card)`
   border: 2px black solid;
@@ -58,10 +59,10 @@ export default function Record({ record, inShop }) {
         )}
         {!inShop && (
           <ButtonStyle
-            className="add-to-cart-btn"
-            onClick={() => {
-              //function to delete cart
-            }}
+            className="delete-from-cart-btn"
+            onClick={() =>
+              deleteCartItem(record.recordId)
+            }
           >
             Delete From Cart
           </ButtonStyle>
