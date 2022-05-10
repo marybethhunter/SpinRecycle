@@ -23,7 +23,7 @@ export default function Cart() {
         return () => {
             isMounted = false;
         };
-    }, []);
+    }, [records]);
 
   return (
   <Content>

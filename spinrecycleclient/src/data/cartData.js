@@ -10,9 +10,10 @@ const getCart = () =>
       .catch(reject);
   });
 
-  const deleteCartItem = (cartobj) => new Promise((resolve, reject) => {
+const deleteCartItem = (recordId) =>
+  new Promise((resolve, reject) => {
     axios
-      .delete(`${dbURL}/cart/${cartobj.Id}.json`)
+      .delete(`${dbURL}/Cart/${recordId}`)
       .then(() => getCart().then(resolve))
       .catch(reject);
   });

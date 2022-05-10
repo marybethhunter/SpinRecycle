@@ -14,6 +14,7 @@ const Content = styled.div`
 
 export default function Shop() {
   const [records, setRecords] = useState([]);
+  const [inShop] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -25,7 +26,7 @@ export default function Shop() {
   return (
     <Content>
       {records.map((record) => (
-        <Record key={record.recordId} record={record} />
+        <Record key={record.recordId} record={record} inShop={inShop} />
       ))}
     </Content>
   );
