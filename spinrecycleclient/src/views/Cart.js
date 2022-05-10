@@ -14,17 +14,29 @@ const Content = styled.div`
 const Total = styled.div`
   display: flex;
   width: 200px;
-  height: 25px;
-  border: 1px solid black;
-  border-radius: 5px;
+  height: 65px;
+  border: 5px solid black;
+  border-radius: 10px;
   justify-content: center;
   align-content: center;
+  background-color: #F9F6EE;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const EmptyCartTextContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 100px;
+  border-radius: 10px;
+  border: black 5px solid;
+  background-color: #F9F6EE;
 `;
 
 export default function Cart() {
@@ -56,11 +68,13 @@ export default function Cart() {
   return (
     <Content>
       {records.length === 0 ? (
-        <h2>Your Cart is Empty!</h2>
+        <EmptyCartTextContainer>
+          <h2>Your Cart is Empty!</h2>
+        </EmptyCartTextContainer>
       ) : (
         <Container>
           <Total>
-            Order Total: {orderTotal}
+            <h3>Order Total: ${orderTotal}</h3>
           </Total>
           <Content>
           {records.map((record) => (
