@@ -48,7 +48,7 @@ export default function Cart() {
     records.forEach((record) => {
       orderTotal += record.price;
     });
-    setOrderTotal(orderTotal);
+    setOrderTotal(orderTotal.toFixed(2));
   };
 
   useEffect(() => {
