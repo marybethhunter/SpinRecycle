@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
-// import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import {
   Button, Form, FormGroup, Label, Input,
 } from "reactstrap";
 import { addNewRecord, updateRecord } from "../data/recordData";
+import styled from "styled-components";
+
+const FormStyle = styled(Form)`
+  background-color: #F9F6EE;
+  border-radius: 10px;
+  border: black 5px solid;
+  height: 150px;
+  width: 300px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const initialState = {
   title: '',
@@ -56,8 +70,8 @@ export default function RecordForm({ obj = {} }) {
   };
 
   return (
-    <div>
-      <Form onSubmit={handleClick}>
+    <Container>
+      <FormStyle onSubmit={handleClick}>
         <FormGroup>
           <Label for="title">Record Title:</Label>
           <Input
@@ -109,22 +123,7 @@ export default function RecordForm({ obj = {} }) {
           />
         </FormGroup>
         <Button type="submit">Submit</Button>
-      </Form>
-    </div>
+      </FormStyle>
+    </Container>
   );
 }
-
-// RecordForm.propTypes = {
-//   obj: PropTypes.shape({
-//     title: '',
-//     artist: '',
-//     image: '',
-//     genre: '',
-//     price: '',
-//     recordId: '',
-//   }),
-// };
-
-// RecordForm.defaultProps = {
-//   obj: {},
-// };
