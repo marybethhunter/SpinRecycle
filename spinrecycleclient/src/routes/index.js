@@ -8,6 +8,7 @@ export default function Routing() {
   return (
     <Routes>
       {/* <Route exact path={["/", "/home"]} element={<Home />} /> */}
+      <Route exact path='/' element={<Home />} />
       <Route exact path='/home' element={<Home />} />
       <Route exact path='/shop' element={<Shop />} />
       <Route exact path='/cart' element={<Cart />} />

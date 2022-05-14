@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import RecordForm from '../components/RecordForm';
 
 const HomeStyle = styled.div`
   h1 {
@@ -26,6 +27,7 @@ export default function Home() {
         height="600"
       />
       <h3>VINYL FANTASY!</h3>
+      <RecordForm />
     </HomeStyle>
   );
 }
