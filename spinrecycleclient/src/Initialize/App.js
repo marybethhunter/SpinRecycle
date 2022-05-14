@@ -44,7 +44,7 @@ function App() {
       <Navigation expanded={expanded} setExpanded={setExpanded} setHeaderText={setHeaderText} />
       <Content>
         <Header>{headerText}</Header>
-        <Routing />
+        <Routing setHeaderText={setHeaderText} />
       </Content>
     </Body>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Record from "../components/Record";
 import { getAllRecords } from "../data/recordData";
+import PropTypes from "prop-types";
 
 const Content = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ const Content = styled.div`
   padding-top: 20px;
 `;
 
-export default function Shop() {
+export default function Shop({setHeaderText}) {
   const [records, setRecords] = useState([]);
   const [inShop] = useState(true);
 
@@ -25,8 +26,12 @@ export default function Shop() {
   return (
     <Content>
       {records.map((record) => (
-        <Record key={record.recordId} record={record} inShop={inShop} />
+        <Record key={record.recordId} record={record} inShop={inShop} setHeaderText={setHeaderText} />
       ))}
     </Content>
   );
 }
+
+Shop.propTypes = {
+  setHeaderText: PropTypes.func.isRequired,
+};

@@ -31,7 +31,7 @@ const ButtonStyle = styled(Button)`
   border: 2px solid black;
   box-shadow: 1px 1px 1px;
 `;
-export default function Record({ record, inShop }) {
+export default function Record({ record, inShop, setHeaderText }) {
   const history = useNavigate();
   return (
     <CardStyle>
@@ -51,6 +51,7 @@ export default function Record({ record, inShop }) {
             onClick={() => {
               addRecordToCart(record.recordId);
               history("/cart");
+              setHeaderText("Cart");
             }}
           >
             Add To Cart
@@ -80,4 +81,9 @@ Record.propTypes = {
     price: PropTypes.number,
     image: PropTypes.string,
   }).isRequired,
+  setHeaderText: PropTypes.func
 };
+
+Record.defaultProps = {
+  setHeaderText: () => {}
+}
