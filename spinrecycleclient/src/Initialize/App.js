@@ -37,7 +37,7 @@ const Content = styled.div`
 
 function App() {
   const [expanded, setExpanded] = useState(false);
-  const [headerText, setHeaderText] = useState(window.location.pathname[1].toUpperCase() + window.location.pathname.substring(2));
+  const [headerText, setHeaderText] = useState(window.location.pathname[1] ? window.location.pathname[1].toUpperCase() + window.location.pathname.substring(2) : "");
 
   return (
     <Body>
