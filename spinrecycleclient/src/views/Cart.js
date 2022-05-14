@@ -8,7 +8,7 @@ const Content = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 20px;
 `;
 
 const Total = styled.div`
@@ -48,7 +48,7 @@ export default function Cart() {
     records.forEach((record) => {
       orderTotal += record.price;
     });
-    setOrderTotal(orderTotal);
+    setOrderTotal(orderTotal.toFixed(2));
   };
 
   useEffect(() => {

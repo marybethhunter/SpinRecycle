@@ -16,22 +16,34 @@ const Body = styled.div`
   background-size: cover;
 `;
 
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0px;
+  height: 75px;
+  background-color: #F9F6EE;
+  border-bottom: 4px solid black;
+  font-size: 35px;
+`;
+
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   text-align: center;
   width: 100%;
-  min-height: 100vh;
 `;
 
 function App() {
   const [expanded, setExpanded] = useState(false);
+  const [headerText, setHeaderText] = useState(window.location.pathname[1].toUpperCase() + window.location.pathname.substring(2));
 
   return (
     <Body>
-      <Navigation expanded={expanded} setExpanded={setExpanded} />
+      <Navigation expanded={expanded} setExpanded={setExpanded} setHeaderText={setHeaderText} />
       <Content>
+        <Header>{headerText}</Header>
         <Routing />
       </Content>
     </Body>
