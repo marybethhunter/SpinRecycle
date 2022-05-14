@@ -8,7 +8,7 @@ const Content = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 20px;
 `;
 
 const Total = styled.div`

@@ -41,17 +41,22 @@ const NavLink = styled.div`
   }
 `;
 
-export default function Navigation({expanded, setExpanded}) {
+export default function Navigation({expanded, setExpanded, setHeaderText}) {
   const navigate = useNavigate();
+
+  const navTo = (pathname) => {
+    setHeaderText(pathname);
+    navigate(`/${pathname.toLowerCase()}`)
+  }
 
   return (
     <NavContainer>
       <NavIcon expanded={expanded} setExpanded={setExpanded} />
       <NavContent className={expanded ? "navContent-expanded" : "navContent-hidden"}>
         <NavHeader className={expanded ? "nav-expanded" : "nav-hidden"}>Vinyl Destination</NavHeader>
-        <NavLink onClick={() => navigate("/home")} className={expanded ? "nav-expanded" : "nav-hidden"}>Home</NavLink>
-        <NavLink onClick={() => navigate("/shop")} className={expanded ? "nav-expanded" : "nav-hidden"}>Shop</NavLink>
-        <NavLink onClick={() => navigate("/cart")} className={expanded ? "nav-expanded" : "nav-hidden"}>Cart</NavLink>
+        <NavLink onClick={() => navTo("Home")} className={expanded ? "nav-expanded" : "nav-hidden"}>Home</NavLink>
+        <NavLink onClick={() => navTo("Shop")} className={expanded ? "nav-expanded" : "nav-hidden"}>Shop</NavLink>
+        <NavLink onClick={() => navTo("Cart")} className={expanded ? "nav-expanded" : "nav-hidden"}>Cart</NavLink>
       </NavContent>
     </NavContainer>
   )
@@ -59,5 +64,6 @@ export default function Navigation({expanded, setExpanded}) {
 
 Navigation.propTypes = {
   expanded: PropTypes.bool.isRequired,
-  setExpanded: PropTypes.func.isRequired
+  setExpanded: PropTypes.func.isRequired,
+  setHeaderText: PropTypes.func.isRequired
 }
